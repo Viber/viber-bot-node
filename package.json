@@ -1,13 +1,22 @@
 {
-  "name": "viber-bot",
+  "name": "@viber/viber-bot",
   "version": "1.0.0",
   "description": "A bot interface to work with Viber API",
   "author": "Viber LTD",
-  "scripts": {
-    "test": "../scripts/run-tests.sh"
+  "engines": {
+    "node": ">=5",
+    "npm": ">=3"
+  }
+  "keywords": [
+    "viber",
+    "api",
+    "bot"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Viber/viber-bot-node"
   },
-  "license": "NRL",
-  "main": "lib/index.js",
+  "license": "Apache 2.0",
   "dependencies": {
     "underscore": "^1.8.3",
     "body-parser": "^1.15.2",
@@ -19,3 +28,4 @@
     "nodeunit": "~0.10.2"
   }
 }
+~
