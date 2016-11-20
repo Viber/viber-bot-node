@@ -3,7 +3,7 @@ Use this library to communicate with the Viber API to develop a bot for [Viber](
 Please visit [Getting Started](https://developers.viber.com/customer/en/portal/articles/2567874-getting-started?b_id=15145) guide for more information about Viber API.
 
 ## License
-This library is released under the terms of the MIT license. See [License](LICENSE.md) for more information.
+This library is released under the terms of the Apache 2.0 license. See [License](LICENSE.md) for more information.
 
 ## Library Prerequisites
 * Node >= 5.0.0
