@@ -6,7 +6,7 @@
   "engines": {
     "node": ">=5",
     "npm": ">=3"
-  }
+  },
   "keywords": [
     "viber",
     "api",
