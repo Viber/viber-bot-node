@@ -1,0 +1,21 @@
+{
+  "name": "viber-bot",
+  "version": "1.0.0",
+  "description": "A bot interface to work with Viber API",
+  "author": "Viber LTD",
+  "scripts": {
+    "test": "../scripts/run-tests.sh"
+  },
+  "license": "NRL",
+  "main": "lib/index.js",
+  "dependencies": {
+    "underscore": "^1.8.3",
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "needle": "^1.1.0"
+  },
+  "devDependencies": {
+    "eslint": "^2.10.1",
+    "nodeunit": "~0.10.2"
+  }
+}
