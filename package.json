@@ -1,5 +1,5 @@
 {
-  "name": "@viber/viber-bot",
+  "name": "viber-bot",
   "version": "1.0.0",
   "description": "A bot interface to work with Viber API",
   "author": "Viber LTD",
@@ -28,4 +28,3 @@
     "nodeunit": "~0.10.2"
   }
 }
-~
