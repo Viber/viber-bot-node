@@ -15,7 +15,7 @@ This library is released under the terms of the Apache 2.0 license. See [License
 ### Installing
 Creating a basic Viber bot is simple:
 
-1. Import `@viber/viber-bot` library to your project
+1. Import `viber-bot` library to your project
 2. Create a Public Account and use the API key from https://developers.viber.com/
 3. Configure your bot as described in the documentation below
 4. Add the bot as middleware to your server with `bot.middleware()`
@@ -27,8 +27,8 @@ Firstly, let's *import and configure* our bot:
 ```javascript
 'use strict';
 
-const ViberBot  = require('@viber/viber-bot').Bot;
-const BotEvents = require('@viber/viber-bot').Events;
+const ViberBot  = require('viber-bot').Bot;
+const BotEvents = require('viber-bot').Events;
 
 const winston = require('winston');
 const logger  = new winston.Logger({ level: "DEBUG" }); // We recommend DEBUG for development
@@ -60,7 +60,7 @@ https.createServer(httpsOptions, bot.middleware()).listen(port, () => bot.setWeb
 Well, funny you ask. Yes we do. 
 **be careful**, messages sent to your router callback will also be emitted to *BotEvents.MESSAGE_RECEIVED* event.
 ```javascript
-const TextMessage = require('@viber/viber-bot').Message.Text;
+const TextMessage = require('viber-bot').Message.Text;
 
 // A simple regular expression to answer messages in the form of 'hi' and 'hello'.
 bot.onTextMessage(/^hi|hello$/i, (message, response) => 
@@ -83,7 +83,7 @@ Check out the full API documentation for more advanced uses.
 
 ## API
 ### Viber Bot
-`require('@viber/viber-bot').Bot`
+`require('viber-bot').Bot`
 
 An event emitter, emitting events [described here](#onEvent).
 
@@ -113,7 +113,7 @@ An event emitter, emitting events [described here](#onEvent).
 
 <a name="onEvent"></a>
 ### bot.on(handler)
-`require('@viber/viber-bot').Events`
+`require('viber-bot').Events`
 
 | Param | Type |
 | --- | --- |
@@ -172,11 +172,11 @@ bot.setWebhook("https://my.bot/incoming").then(() => yourBot.doSomething()).catc
 Returns a `promise.ARRAY` array of message tokens. **Example**  
 ```js
 // single message
-const TextMessage = require('@viber/viber-bot').Message.Text;
+const TextMessage = require('viber-bot').Message.Text;
 bot.sendMessage(userProfile, new TextMessage("Thanks for shopping with us"));
 
 // multiple messages
-const UrlMessage  = require('@viber/viber-bot').Message.Url;
+const UrlMessage  = require('viber-bot').Message.Url;
 bot.sendMessage(userProfile, [
     new TextMessage("Here's the product you've requested:"),
     new UrlMessage("http://my.ecommerce.site/product1"),
@@ -277,13 +277,13 @@ Members:
 <a name="MessageObject"></a>
 ### Message Object
 ```javascript
-const TextMessage     = require('@viber/viber-bot').Message.Text;
-const UrlMessage      = require('@viber/viber-bot').Message.Url;
-const ContactMessage  = require('@viber/viber-bot').Message.Contact;
-const PictureMessage  = require('@viber/viber-bot').Message.Picture;
-const VideoMessage    = require('@viber/viber-bot').Message.Video;
-const LocationMessage = require('@viber/viber-bot').Message.Location;
-const StickerMessage  = require('@viber/viber-bot').Message.Sticker;
+const TextMessage     = require('viber-bot').Message.Text;
+const UrlMessage      = require('viber-bot').Message.Url;
+const ContactMessage  = require('viber-bot').Message.Contact;
+const PictureMessage  = require('viber-bot').Message.Picture;
+const VideoMessage    = require('viber-bot').Message.Video;
+const LocationMessage = require('viber-bot').Message.Location;
+const StickerMessage  = require('viber-bot').Message.Sticker;
 ```
 
 **Common Members for `Message` interface**:
