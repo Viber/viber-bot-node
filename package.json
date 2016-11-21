@@ -16,6 +16,7 @@
     "type": "git",
     "url": "https://github.com/Viber/viber-bot-node"
   },
+  "main": "lib/index.js",
   "license": "Apache 2.0",
   "dependencies": {
     "underscore": "^1.8.3",
