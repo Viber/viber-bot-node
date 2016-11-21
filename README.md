@@ -30,10 +30,19 @@ Firstly, let's *import and configure* our bot:
 const ViberBot  = require('viber-bot').Bot;
 const BotEvents = require('viber-bot').Events;
 
-const winston = require('winston');
-const logger  = new winston.Logger({ level: "DEBUG" }); // We recommend DEBUG for development
+const winston   = require('winston');
+const toYAML    = require('winston-console-formatter');
+const config    = require('config');
 
-const bot = new ViberBot(logger, {
+function createLogger() {
+	const logger = new winston.Logger({ level: "debug" }); // We recommend DEBUG for development
+	logger.add(winston.transports.Console, toYAML.config()); 
+	logger.add(winston.transports.File, { filename: 'logs/viber.support-bot.log', json: false });
+	return logger;
+}
+
+const logger = createLogger();
+const bot    = new ViberBot(logger, {
 	authToken: YOUR_AUTH_TOKEN_HERE,
 	name: "EchoBot",
 	avatar: "http://viber.com/avatar.jpg" // It is recommended to be 720x720, and no more than 100kb.
