@@ -32,7 +32,6 @@ const BotEvents = require('viber-bot').Events;
 
 const winston   = require('winston');
 const toYAML    = require('winston-console-formatter');
-const config    = require('config');
 
 function createLogger() {
 	const logger = new winston.Logger({ level: "debug" }); // We recommend DEBUG for development
