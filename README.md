@@ -37,7 +37,6 @@ const config    = require('config');
 function createLogger() {
 	const logger = new winston.Logger({ level: "debug" }); // We recommend DEBUG for development
 	logger.add(winston.transports.Console, toYAML.config()); 
-	logger.add(winston.transports.File, { filename: 'logs/viber.support-bot.log', json: false });
 	return logger;
 }
 
