@@ -103,8 +103,8 @@ An event emitter, emitting events [described here](#onEvent).
     * [.onTextMessage(regex, handler)](#onTextMessage) : `handler` = [`TextMessageHandlerCallback`](#TextMessageHandlerCallback)
     * [.onError(handler)](#onError) : `handler` = [`ErrorHandlerCallback`](#ErrorHandlerCallback)
     * [.onConversationStarted(userProfile, onFinish)](#onConversationStarted) : `onFinish` = [`ConversationStartedOnFinishCallback`](#ConversationStartedOnFinishCallback)
-    * [.onSubscribe(handler)](#onSubscribe) : `handler` = [`ResponseHandlerCallback`](#ResponseHandlerCallback)
-    * [.onUnsubscribe(handler)](#onUnsubscribe) : `handler` = [`ResponseHandlerCallback`](#ResponseHandlerCallback)
+    * [.onSubscribe(handler)](#onSubscribe) : `handler` = [`SubscribeResponseHandlerCallback`](#SubscribeResponseHandlerCallback)
+    * [.onUnsubscribe(handler)](#onUnsubscribe) : `handler` = [`UnsubscribeResponseHandlerCallback`](#UnsubscribeResponseHandlerCallback)
     * [.middleware()](#middleware)
 
 
@@ -244,18 +244,30 @@ bot.onConversationStarted((userProfile, onFinish) =>
 	onFinish(new TextMessage(`Hi, ${userProfile.name}! Nice to meet you.`)));
 ```
 
-<a name="onSubscribe"></a><a name="onUnsubscribe"></a>
-### bot.onSubscribe(handler) & bot.onUnsubscribe(handler)
+<a name="onSubscribe"></a>
+### bot.onSubscribe(handler)
 | Param | Type |
 | --- | --- |
-| handler | [`ResponseHandlerCallback`](#ResponseHandlerCallback) |
+| handler | [`SubscribeResponseHandlerCallback`](#SubscribeResponseHandlerCallback) |
 
-<a name="ResponseHandlerCallback"></a>
-##### ResponseHandlerCallback: `function (response) {}`
+<a name="SubscribeResponseHandlerCallback"></a>
+##### SubscribeResponseHandlerCallback: `function (response) {}`
 **Example**  
 ```js
 bot.onSubscribe(response => console.log(`Subscribed: ${response.userProfile.name}`));
-bot.onUnsubscribe(response => console.log(`Unsubscribed: ${response.userProfile.name}`));
+```
+
+<a name="onUnsubscribe"></a>
+### bot.onUnsubscribe(handler)
+| Param | Type |
+| --- | --- |
+| handler | [`UnsubscribeResponseHandlerCallback`](#UnsubscribeResponseHandlerCallback) |
+
+<a name="UnsubscribeResponseHandlerCallback"></a>
+##### UnsubscribeResponseHandlerCallback: `function (userId) {}`
+**Example**  
+```js
+bot.onUnsubscribe(userId => console.log(`Unsubscribed: ${userId}`));
 ```
 
 <a name="ResponseObject"></a>
