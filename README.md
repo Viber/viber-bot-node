@@ -47,7 +47,7 @@ const bot    = new ViberBot(logger, {
 });
 
 // Perfect! Now here's the key part:
-bot.on(BotEvents.MESSAGE_RECEIVED, (event, message, response) => {
+bot.on(BotEvents.MESSAGE_RECEIVED, (message, response) => {
 	// Echo's back the message to the client. Your bot logic should sit here.
 	response.send(message);
 });
@@ -130,21 +130,21 @@ An event emitter, emitting events [described here](#onEvent).
 | err | `Error Object` |
 
 Subscribe to events:
-* MESSAGE_RECEIVED (Callback:  `function (event, message, response) {}`)
-* MESSAGE_SENT (Callback:  `function (event, message, userProfile) {}`)
-* SUBSCRIBED (Callback:  `function (event, response) {}`)
-* UNSUBSCRIBED (Callback:  `function (event, response) {}`)
-* CONVERSATION_STARTED (Callback:  `function (event, response) {}`)
-* ERROR (Callback:  `function (event, err) {}`)
+* MESSAGE_RECEIVED (Callback:  `function (message, response) {}`)
+* MESSAGE_SENT (Callback:  `function (message, userProfile) {}`)
+* SUBSCRIBED (Callback:  `function (response) {}`)
+* UNSUBSCRIBED (Callback:  `function (response) {}`)
+* CONVERSATION_STARTED (Callback:  `function (response) {}`)
+* ERROR (Callback:  `function (err) {}`)
 
 **Example**  
 ```js
-bot.on(BotEvents.MESSAGE_RECEIVED, (event, message, response) => ... );
-bot.on(BotEvents.MESSAGE_SENT, (event, message, userProfile) => ... );
-bot.on(BotEvents.CONVERSATION_STARTED, (event, message, response) => ... );
-bot.on(BotEvents.ERROR, (event, err) => ... );
-bot.on(BotEvents.UNSUBSCRIBED, (event, response) => ... );
-bot.on(BotEvents.SUBSCRIBED, (event, response) =>
+bot.on(BotEvents.MESSAGE_RECEIVED, (message, response) => ... );
+bot.on(BotEvents.MESSAGE_SENT, (message, userProfile) => ... );
+bot.on(BotEvents.CONVERSATION_STARTED, (message, response) => ... );
+bot.on(BotEvents.ERROR, err => ... );
+bot.on(BotEvents.UNSUBSCRIBED, (response) => ... );
+bot.on(BotEvents.SUBSCRIBED, (response) =>
     response.send(`Thanks for subscribing, ${response.userProfile.name}`));
 ```
 
@@ -221,10 +221,10 @@ bot.onTextMessage(/^hi|hello$/i, (message, response) =>
 | handler | [`ErrorHandlerCallback`](#ErrorHandlerCallback) |
 
 <a name="ErrorHandlerCallback"></a>
-##### ErrorHandlerCallback: `function (event, err) {}`
+##### ErrorHandlerCallback: `function (err) {}`
 **Example**  
 ```js
-bot.onError((event, err) => logger.error(err));
+bot.onError(err => logger.error(err));
 ```
 
 <a name="onConversationStarted"></a>
@@ -251,11 +251,11 @@ bot.onConversationStarted((userProfile, onFinish) =>
 | handler | [`ResponseHandlerCallback`](#ResponseHandlerCallback) |
 
 <a name="ResponseHandlerCallback"></a>
-##### ResponseHandlerCallback: `function (event, response) {}`
+##### ResponseHandlerCallback: `function (response) {}`
 **Example**  
 ```js
-bot.onSubscribe((event, response) => console.log(`Subscribed: ${response.userProfile.name}`));
-bot.onUnsubscribe((event, response) => console.log(`Unsubscribed: ${response.userProfile.name}`));
+bot.onSubscribe(response => console.log(`Subscribed: ${response.userProfile.name}`));
+bot.onUnsubscribe(response => console.log(`Unsubscribed: ${response.userProfile.name}`));
 ```
 
 <a name="ResponseObject"></a>
