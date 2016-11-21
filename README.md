@@ -143,8 +143,8 @@ bot.on(BotEvents.MESSAGE_RECEIVED, (message, response) => ... );
 bot.on(BotEvents.MESSAGE_SENT, (message, userProfile) => ... );
 bot.on(BotEvents.CONVERSATION_STARTED, (message, response) => ... );
 bot.on(BotEvents.ERROR, err => ... );
-bot.on(BotEvents.UNSUBSCRIBED, (response) => ... );
-bot.on(BotEvents.SUBSCRIBED, (response) =>
+bot.on(BotEvents.UNSUBSCRIBED, response => ... );
+bot.on(BotEvents.SUBSCRIBED, response =>
     response.send(`Thanks for subscribing, ${response.userProfile.name}`));
 ```
 
