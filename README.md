@@ -237,11 +237,13 @@ bot.onError(err => logger.error(err));
 *Note*: onConversationStarted event happens once when A Viber client opens the conversation with your bot for the first time. Callback accepts `null` and [`MessageObject`](#MessageObject) only. Otherwise, an exception is thrown.
 
 <a name="ConversationStartedOnFinishCallback"></a>
-##### ConversationStartedOnFinishCallback: `function (responseMessage) {}`
+##### ConversationStartedOnFinishCallback: `function (responseMessage, optionalTrackingData) {}`
 **Example**  
 ```js
 bot.onConversationStarted((userProfile, onFinish) => 
 	onFinish(new TextMessage(`Hi, ${userProfile.name}! Nice to meet you.`)));
+	
+bot.onConversationStarted((userProfile, onFinish) => onFinish(new TextMessage(`Thanks`), { saidThanks: true }));
 ```
 
 <a name="onSubscribe"></a>
