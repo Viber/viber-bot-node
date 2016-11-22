@@ -96,7 +96,8 @@ An event emitter, emitting events [described here](#onEvent).
 
 * [ViberBot](#ViberBot)
     * [new ViberBot()](#newViberBot)
-    * [.getProfile()](#getProfile) ⇒ `promise.JSON`
+    * [.getBotProfile()](#getBotProfile) ⇒ `promise.JSON`
+    * [.getUserDetails(userProfile)](#getUserDetails) ⇒ `promise.JSON`
     * [.setWebhook(url)](#setWebhook) ⇒ `promise.JSON`
     * [.sendMessage(userProfile, messages, [optionalTrackingData])](#sendMessage) ⇒ `promise.ARRAY`
     * [.on(handler)](#onEvent) 
@@ -148,11 +149,23 @@ bot.on(BotEvents.SUBSCRIBED, response =>
     response.send(`Thanks for subscribing, ${response.userProfile.name}`));
 ```
 
-<a name="getProfile"></a>
-### bot.getProfile()
+<a name="getBotProfile"></a>
+### bot.getBotProfile()
 Returns a `promise.JSON` ([With the following JSON](https://developers.viber.com/customer/en/portal/articles/2541122-get-account-info?b_id=15145)). **Example**  
 ```js
-bot.getProfile().then(response => console.log(`Public Account Named: ${response.name}`));
+bot.getBotProfile().then(response => console.log(`Public Account Named: ${response.name}`));
+```
+
+<a name="getUserDetails"></a>
+### bot.getUserDetails(userProfile)
+| Param | Type | Description |
+| --- | --- | --- |
+| userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
+
+Returns a `promise.JSON`. **Example**  
+```js
+bot.onSubscribe(response => bot.getUserDetails(response.userProfile)
+        .then(userDetails => console.log(userDetails)));
 ```
 
 <a name="setWebhook"></a>
@@ -243,7 +256,8 @@ bot.onError(err => logger.error(err));
 bot.onConversationStarted((userProfile, onFinish) => 
 	onFinish(new TextMessage(`Hi, ${userProfile.name}! Nice to meet you.`)));
 	
-bot.onConversationStarted((userProfile, onFinish) => onFinish(new TextMessage(`Thanks`), { saidThanks: true }));
+bot.onConversationStarted((userProfile, onFinish) => 
+    onFinish(new TextMessage(`Thanks`), { saidThanks: true }));
 ```
 
 <a name="onSubscribe"></a>

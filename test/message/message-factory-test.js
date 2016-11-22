@@ -187,13 +187,13 @@ exports.messageFactory = {
 				"name": "Idan Harel",
 				"avatar": "https://share.viber.com/download_photo?dlid=66adab37fe13aa4a731249d8a10a2fb8e5c339765661876e3d963083369a6a06%26fltp=jpg%26imsz=0000"
 			},
-			"message": { "type": "sticker", "media": "http://viber.com" }
+			"message": { "type": "sticker", "sticker_id": 5536 }
 		};
 
 		const message = new MessageFactory().createMessageFromJson(stickerMessage);
 
-		test.ok(message instanceof PictureMessage, "message should be of type PictureMessage");
-		test.deepEqual(message.toJson(), { type: 'picture', text: null, media: 'http://viber.com', thumbnail: null });
+		test.ok(message instanceof StickerMessage, "message should be of type StickerMessage");
+		test.deepEqual(message.toJson(), { type: 'sticker', sticker_id: 5536 });
 		test.done();
 	}
 };
