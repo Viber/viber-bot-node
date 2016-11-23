@@ -22,7 +22,7 @@ Creating a basic Viber bot is simple:
 5. Start your web server
 6. Call setWebhook(url) with your webserver url
 
-### A simple Echo Bot:
+### A simple Echo Bot
 Firstly, let's *import and configure* our bot:
 ```javascript
 'use strict';
@@ -110,7 +110,7 @@ An event emitter, emitting events [described here](#onEvent).
 
 
 <a name="newViberBot"></a>
-### new ViberBot()
+### New ViberBot()
 
 | Param | Type | Description |
 | --- | --- | --- |
