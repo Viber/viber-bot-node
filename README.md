@@ -110,7 +110,7 @@ An event emitter, emitting events [described here](#onEvent).
 
 
 <a name="newViberBot"></a>
-### New ViberBot()
+### new ViberBot()
 
 | Param | Type | Description |
 | --- | --- | --- |
