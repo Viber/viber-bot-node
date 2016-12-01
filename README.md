@@ -2,6 +2,8 @@
 Use this library to communicate with the Viber API to develop a bot for [Viber](https://developers.viber.com/).
 Please visit [Getting Started](https://developers.viber.com/customer/en/portal/articles/2567874-getting-started?b_id=15145) guide for more information about Viber API.
 
+- Install with [`npm install viber-bot --save`](https://www.npmjs.com/package/viber-bot)
+
 ## License
 This library is released under the terms of the Apache 2.0 license. See [License](LICENSE.md) for more information.
 
