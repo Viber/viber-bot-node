@@ -2,8 +2,6 @@
 Use this library to communicate with the Viber API to develop a bot for [Viber](https://developers.viber.com/).
 Please visit [Getting Started](https://developers.viber.com/customer/en/portal/articles/2567874-getting-started?b_id=15145) guide for more information about Viber API.
 
-- Install with [`npm install viber-bot --save`](https://www.npmjs.com/package/viber-bot)
-
 ## License
 This library is released under the terms of the Apache 2.0 license. See [License](LICENSE.md) for more information.
 
@@ -13,8 +11,21 @@ This library is released under the terms of the Apache 2.0 license. See [License
 * [Get your Viber Public Account authentication token](https://developers.viber.com/customer/en/portal/articles/2554141-create-a-public-account?b_id=15145).
 * SSL Certification - You'll need a trusted (ca.pem) certificate, not self-signed. You can find one at [Let's Encrypt](https://letsencrypt.org/) or buy one.
 
+## Installation
+This library is released on [npm](https://www.npmjs.com/package/viber-bot).
+
+### Npm
+Install with [`npm install viber-bot --save`](https://www.npmjs.com/package/viber-bot)
+
+### Express
+If you are already using express or equivalent, you can do the following:
+```javascript
+app.use("/viber/webhook", bot.middleware());
+```
+Please revisit [app.use()](http://expressjs.com/en/api.html#app.use) documentation.
+For more information see [ViberBot.middleware()](#middleware).
+
 ## Let's get started!
-### Installing
 Creating a basic Viber bot is simple:
 
 1. Import `viber-bot` library to your project
@@ -208,7 +219,8 @@ bot.sendMessage(userProfile, [
 
 <a name="middleware"></a>
 ### bot.middleware()
-Returns a middleware to use with `http/https`. **Example**  
+Returns a middleware implmentation to use with `http/https` or any webserver that accept middleware interface as an argument.
+**Example**  
 ```js
 const https = require('https');
 https.createServer({ key: ... , cert: ... , ca: ... }, bot.middleware()).listen(8080);
