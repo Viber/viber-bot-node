@@ -219,7 +219,7 @@ bot.sendMessage(userProfile, [
 
 <a name="middleware"></a>
 ### bot.middleware()
-Returns a middleware implmentation to use with `http/https` or any webserver that accept middleware interface as an argument.
+Returns a middleware implementation to use with `http/https` or any webserver that accept middleware interface as an argument.
 **Example**  
 ```js
 const https = require('https');
