@@ -14,7 +14,7 @@ This library is released under the terms of the Apache 2.0 license. See [License
 ## Installation
 This library is released on [npm](https://www.npmjs.com/package/viber-bot).
 
-### Npm
+### npm
 Install with [`npm install viber-bot --save`](https://www.npmjs.com/package/viber-bot)
 
 ### Express
