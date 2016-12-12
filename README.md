@@ -131,6 +131,7 @@ An event emitter, emitting events [described here](#onEvent).
 | options.authToken | `string` | Viber Auth Token  |
 | options.name | `string` | Your BOT Name |
 | options.avatar | `string` | Avatar URL. **No more than 100kb.** |
+| options.registerToEvents | `array` | example: ["message", "delivered"] |
 
 <a name="onEvent"></a>
 ### bot.on(handler)
