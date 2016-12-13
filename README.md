@@ -30,7 +30,7 @@ For more information see [ViberBot.middleware()](#middleware).
 Creating a basic Viber bot is simple:
 
 1. Import `viber-bot` library to your project
-2. Create a Public Account and use the API key from [https://dev.viber.com]()
+2. Create a Public Account and use the API key from [https://developers.viber.com]()
 3. Configure your bot as described in the documentation below
 4. Add the bot as middleware to your server with `bot.middleware()`
 5. Start your web server
