@@ -149,14 +149,14 @@ Subscribe to events:
 * MESSAGE_SENT (Callback:  `function (message, userProfile) {}`)
 * SUBSCRIBED (Callback:  `function (response) {}`)
 * UNSUBSCRIBED (Callback:  `function (response) {}`)
-* CONVERSATION_STARTED (Callback:  `function (response) {}`)
+* CONVERSATION_STARTED (Callback:  `function (userProfile, onFinish) {}`)
 * ERROR (Callback:  `function (err) {}`)
 
 **Example**  
 ```js
 bot.on(BotEvents.MESSAGE_RECEIVED, (message, response) => ... );
 bot.on(BotEvents.MESSAGE_SENT, (message, userProfile) => ... );
-bot.on(BotEvents.CONVERSATION_STARTED, (message, response) => ... );
+bot.on(BotEvents.CONVERSATION_STARTED, (userProfile, onFinish) => ... );
 bot.on(BotEvents.ERROR, err => ... );
 bot.on(BotEvents.UNSUBSCRIBED, response => ... );
 bot.on(BotEvents.SUBSCRIBED, response =>
