@@ -1,6 +1,6 @@
 {
   "name": "viber-bot",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A bot interface to work with Viber API",
   "author": "Viber LTD",
   "engines": {

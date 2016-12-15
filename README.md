@@ -7,7 +7,6 @@ This library is released under the terms of the Apache 2.0 license. See [License
 
 ## Library Prerequisites
 * Node >= 5.0.0
-* Winston >= 2.0.0
 * Get your Viber Public Account authentication token. Your token is generated and provided to you during the Public Account creation process. As a Public Account admin, you can always find the account token in the "edit info" page.
 * SSL Certification - You'll need a trusted (ca.pem) certificate, not self-signed. You can find one at [Let's Encrypt](https://letsencrypt.org/) or buy one.
 
@@ -45,16 +44,6 @@ Firstly, let's *import and configure* our bot:
 const ViberBot  = require('viber-bot').Bot;
 const BotEvents = require('viber-bot').Events;
 
-const winston   = require('winston');
-const toYAML    = require('winston-console-formatter');
-
-function createLogger() {
-	const logger = new winston.Logger({ level: "debug" }); // We recommend DEBUG for development
-	logger.add(winston.transports.Console, toYAML.config());
-	return logger;
-}
-
-const logger = createLogger();
 const bot    = new ViberBot(logger, {
 	authToken: YOUR_AUTH_TOKEN_HERE,
 	name: "EchoBot",
@@ -76,6 +65,31 @@ const webhookUrl = process.env.WEBHOOK_URL;
 
 const httpsOptions = { key: ... , cert: ... , ca: ... }; // Trusted SSL certification (not self-signed).
 https.createServer(httpsOptions, bot.middleware()).listen(port, () => bot.setWebhook(webhookUrl));
+```
+
+### Using Winston logger
+We provide an option to use [Winston](https://www.npmjs.com/package/winston) logger with our library.
+The only requirement is that you use Winston >= 2.0.0.
+
+```javascript
+'use strict';
+
+const ViberBot  = require('viber-bot').Bot;
+const winston   = require('winston');
+const toYAML    = require('winston-console-formatter'); // makes the output more friendly
+
+function createLogger() {
+	const logger = new winston.Logger({ level: "debug" }); // We recommend DEBUG for development
+	logger.add(winston.transports.Console, toYAML.config());
+	return logger;
+}
+
+const logger = createLogger();
+const bot    = new ViberBot(logger, {
+	logger: logger,
+	authToken: ...,
+	...
+});
 ```
 
 ### Do you supply a basic router for text messages?
