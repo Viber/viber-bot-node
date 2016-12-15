@@ -44,7 +44,7 @@ Firstly, let's *import and configure* our bot:
 const ViberBot  = require('viber-bot').Bot;
 const BotEvents = require('viber-bot').Events;
 
-const bot    = new ViberBot(logger, {
+const bot    = new ViberBot({
 	authToken: YOUR_AUTH_TOKEN_HERE,
 	name: "EchoBot",
 	avatar: "http://viber.com/avatar.jpg" // It is recommended to be 720x720, and no more than 100kb.
@@ -85,7 +85,7 @@ function createLogger() {
 }
 
 const logger = createLogger();
-const bot    = new ViberBot(logger, {
+const bot    = new ViberBot({
 	logger: logger,
 	authToken: ...,
 	...
@@ -141,7 +141,7 @@ An event emitter, emitting events [described here](#onEvent).
 
 | Param | Type | Description |
 | --- | --- | --- |
-| logger | `object` | Winston logger |
+| options.logger | `object` | Winston logger |
 | options.authToken | `string` | Viber Auth Token  |
 | options.name | `string` | Your BOT Name |
 | options.avatar | `string` | Avatar URL. **No more than 100kb.** |
