@@ -121,7 +121,7 @@ Creating them is easy! Every message object has its own unique constructor corre
 
 An event emitter, emitting events [described here](#onEvent).
 
-* [ViberBot](#ViberBot)
+* ViberBot
     * [new ViberBot()](#newViberBot)
     * [.getBotProfile()](#getBotProfile) ⇒ `promise.JSON`
     * [.getUserDetails(userProfile)](#getUserDetails) ⇒ `promise.JSON`
@@ -328,7 +328,7 @@ Members:
 | --- | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | --- |
 
-* [Response](#Response)
+* Response
     * [.send(messages, [optionalTrackingData])](#sendMessage) ⇒ `promise.JSON`
 
 <a name="UserProfile"></a>
