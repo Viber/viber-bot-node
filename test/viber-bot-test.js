@@ -13,6 +13,16 @@ exports.creatingBotObject = {
 		test.done();
 	},
 
+	createBotWithLoggerAsOption: test => {
+		new ViberBot({
+			logger: TestEnvironmentConfiguration.MockLogger,
+			authToken: "123AB",
+			name: "Test",
+			avatar: "http://avatar.com/image.jpg"
+		});
+		test.done();
+	},
+
 	createBotWithMissingAuthTokenField: test => {
 		test.throws(() => new ViberBot(TestEnvironmentConfiguration.MockLogger, {
 			name: "Test",
