@@ -159,6 +159,7 @@ An event emitter, emitting events [described here](#onEvent).
 | err | `Error Object` |
 
 Subscribe to events:
+
 * MESSAGE_RECEIVED (Callback:  `function (message, response) {}`)
 * MESSAGE_SENT (Callback:  `function (message, userProfile) {}`)
 * SUBSCRIBED (Callback:  `function (response) {}`)
