@@ -369,7 +369,7 @@ const StickerMessage  = require('viber-bot').Message.Sticker;
 
 | Param | Type | Description |
 | --- | --- | --- |
-| optionalKeyboard | `JSON` | [Writing Custom Keyboards](rest-bot-api.md#keyboards) |
+| optionalKeyboard | `JSON` | [Writing Custom Keyboards](http://dev.viber.com/api/rest-bot-api/index.html#keyboards) |
 | optionalTrackingData | `JSON` | Data to be saved on Viber Client device, and sent back each time message is recived |
 
 <a name="TextMessage"></a>
