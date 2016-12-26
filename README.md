@@ -33,7 +33,7 @@ Creating a basic Viber bot is simple:
 3. Configure your bot as described in the documentation below
 4. Add the bot as middleware to your server with `bot.middleware()`
 5. Start your web server
-6. Call setWebhook(url) with your webserver url
+6. Call setWebhook(url) with your web server url
 
 ### Creating an echo Bot
 Firstly, let's *import and configure* our bot:
@@ -60,7 +60,7 @@ bot.on(BotEvents.MESSAGE_RECEIVED, (message, response) => {
 const https = require('https');
 const port  = process.env.PORT || 8080;
 
-// Viber will push messages sent to this URL. Webserver should be internet-facing.
+// Viber will push messages sent to this URL. Web server should be internet-facing.
 const webhookUrl = process.env.WEBHOOK_URL;
 
 const httpsOptions = { key: ... , cert: ... , ca: ... }; // Trusted SSL certification (not self-signed).
@@ -370,7 +370,7 @@ const StickerMessage  = require('viber-bot').Message.Sticker;
 | Param | Type | Description |
 | --- | --- | --- |
 | optionalKeyboard | `JSON` | [Writing Custom Keyboards](https://developers.viber.com/tools/keyboards/index.html) |
-| optionalTrackingData | `JSON` | Data to be saved on Viber Client device, and sent back each time message is recived |
+| optionalTrackingData | `JSON` | Data to be saved on Viber Client device, and sent back each time message is received |
 
 <a name="TextMessage"></a>
 #### TextMessage object
