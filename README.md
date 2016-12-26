@@ -181,7 +181,7 @@ bot.on(BotEvents.SUBSCRIBED, response =>
 
 <a name="getBotProfile"></a>
 ### bot.getBotProfile()
-Returns a `promise.JSON` ([With the following JSON](rest-bot-api.md#getAccountInfo).
+Returns a `promise.JSON` [with the following JSON](https://developers.viber.com/api/rest-bot-api/index.html#get-account-info).
 
 ```js
 bot.getBotProfile().then(response => console.log(`Public Account Named: ${response.name}`));
@@ -369,7 +369,7 @@ const StickerMessage  = require('viber-bot').Message.Sticker;
 
 | Param | Type | Description |
 | --- | --- | --- |
-| optionalKeyboard | `JSON` | [Writing Custom Keyboards](http://dev.viber.com/api/rest-bot-api/index.html#keyboards) |
+| optionalKeyboard | `JSON` | [Writing Custom Keyboards](http://developers.viber.com/api/rest-bot-api/index.html#keyboards) |
 | optionalTrackingData | `JSON` | Data to be saved on Viber Client device, and sent back each time message is recived |
 
 <a name="TextMessage"></a>
@@ -415,7 +415,7 @@ console.log(`${message.contactName}, ${message.contactPhoneNumber}`);
 | thumbnail | `string` |
 
 ```javascript
-const message = new ContactMessage(url, [optionalText], [optionalThumbnail], [optionalKeyboard], [optionalTrackingData]);
+const message = new PictureMessage(url, [optionalText], [optionalThumbnail], [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.url}, ${message.text}, ${message.thumbnail}`);
 ```
 
