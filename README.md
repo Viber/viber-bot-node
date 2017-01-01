@@ -112,6 +112,7 @@ Have you noticed how we created the `TextMessage` instance? There's a all bunch 
 * [Video Message](#VideoMessage)
 * [Location Message](#LocationMessage)
 * [Sticker Message](#StickerMessage)
+* [File Message](#FileMessage)
 
 Creating them is easy! Every message object has its own unique constructor corresponding to its API implementation. Click on each type in the list to find out more. Check out the full API documentation for more advanced uses.
 
@@ -454,4 +455,17 @@ console.log(`${message.latitude}, ${message.longitude}`);
 ```javascript
 const message = new StickerMessage(stickerId, [optionalKeyboard], [optionalTrackingData]);
 console.log(message.stickerId);
+```
+
+<a name="FileMessage"></a>
+#### FileMessage object
+| Member | Type
+| --- | --- |
+| url | `string` |
+| sizeInBytes | `long` |
+| filename | `string` |
+
+```javascript
+const message = new FileMessage(url, sizeInBytes, filename, [optionalKeyboard], [optionalTrackingData]);
+console.log(`${message.url}, ${message.sizeInBytes}, ${message.filename}`);
 ```
