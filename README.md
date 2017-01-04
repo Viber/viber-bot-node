@@ -469,3 +469,9 @@ console.log(message.stickerId);
 const message = new FileMessage(url, sizeInBytes, filename, [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.url}, ${message.sizeInBytes}, ${message.filename}`);
 ```
+
+## Sample project
+We've created the [Is It Up sample project](https://github.com/Viber/sample-bot-isitup) to help you get started.
+
+## Community
+Join the conversation on **[Gitter] (https://gitter.im/viber/bot-node)**.
