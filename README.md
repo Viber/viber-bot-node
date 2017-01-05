@@ -126,6 +126,7 @@ An event emitter, emitting events [described here](#onEvent).
     * [new ViberBot()](#newViberBot)
     * [.getBotProfile()](#getBotProfile) ⇒ `promise.JSON`
     * [.getUserDetails(userProfile)](#getUserDetails) ⇒ `promise.JSON`
+    * [.getOnlineStatus(viberUserIds)](#getOnlineStatus) ⇒ `promise.JSON`
     * [.setWebhook(url)](#setWebhook) ⇒ `promise.JSON`
     * [.sendMessage(userProfile, messages, [optionalTrackingData])](#sendMessage) ⇒ `promise.ARRAY`
     * [.on(handler)](#onEvent)
@@ -199,6 +200,18 @@ Returns a `promise.JSON`.
 ```js
 bot.onSubscribe(response => bot.getUserDetails(response.userProfile)
         .then(userDetails => console.log(userDetails)));
+```
+
+<a name="getOnlineStatus"></a>
+### bot.getOnlineStatus(viberUserIds)
+| Param | Type | Description |
+| --- | --- | --- |
+| viberUserIds | `array of strings` | Collection of Viber user ids |
+
+Returns a `promise.JSON`.
+
+```js
+bot.getOnlineStatus(["a1, "a2"]).then(onlineStatus => console.log(onlineStatus));
 ```
 
 <a name="setWebhook"></a>
@@ -341,7 +354,7 @@ Members:
 | --- | --- | --- |
 | id | `string` | --- |
 | name | `string` | --- |
-| avatar | `string` | Avatar URL |
+| avatar | `string` | Optional Avatar URL |
 | country | `string` | **currently set in CONVERSATION_STARTED event only** |
 | language | `string` | **currently set in CONVERSATION_STARTED event only** |
 
@@ -403,7 +416,7 @@ console.log(message.url);
 | contactPhoneNumber | `string` |
 
 ```javascript
-const message = new ContactMessage(contactName, contactPhoneNumber, [optionalKeyboard], [optionalTrackingData]);
+const message = new ContactMessage(contactName, contactPhoneNumber, [optionalAvatar], [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.contactName}, ${message.contactPhoneNumber}`);
 ```
 
@@ -430,7 +443,7 @@ console.log(`${message.url}, ${message.text}, ${message.thumbnail}`);
 | duration | `int` |
 
 ```javascript
-const message = new VideoMessage(url, size, [optionalThumbnail], [optionalDuration], [optionalKeyboard], [optionalTrackingData]);
+const message = new VideoMessage(url, size, [optionalText], [optionalThumbnail], [optionalDuration], [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.url}, ${message.size}, ${message.thumbnail}, ${message.duration}`);
 ```
 
