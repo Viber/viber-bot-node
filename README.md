@@ -195,8 +195,7 @@ bot.getBotProfile().then(response => console.log(`Public Account Named: ${respon
 | --- | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
 
-The `getUserDetails` function will fetch the details of a specific Viber user based on his unique user ID. The user ID can be obtained from the callbacks sent to the PA regrading user's actions.
-This request can be sent twice during a 12 hours period for each user ID.
+The `getUserDetails` function will fetch the details of a specific Viber user based on his unique user ID. The user ID can be obtained from the callbacks sent to the PA regrading user's actions. This request can be sent twice during a 12 hours period for each user ID.
 
 Returns a `promise.JSON`.
 
