@@ -113,6 +113,7 @@ Have you noticed how we created the `TextMessage` instance? There's a all bunch 
 * [Location Message](#LocationMessage)
 * [Sticker Message](#StickerMessage)
 * [File Message](#FileMessage)
+* [Rich Media Message](#RichMediaMessage)
 
 Creating them is easy! Every message object has its own unique constructor corresponding to its API implementation. Click on each type in the list to find out more. Check out the full API documentation for more advanced uses.
 
@@ -542,6 +543,43 @@ console.log(message.stickerId);
 ```javascript
 const message = new FileMessage(url, sizeInBytes, filename, [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.url}, ${message.sizeInBytes}, ${message.filename}`);
+```
+
+<a name="RichMediaMessage"></a>
+
+#### RichMediaMessage object
+
+| Member | Type
+| --- | --- |
+| richMedia | `Object` |
+
+```javascript
+const SAMPLE_RICH_MEDIA = {
+	"ButtonsGroupColumns": 6,
+	"ButtonsGroupRows": 2,
+	"BgColor": "#FFFFFF",
+	"Buttons": [{
+		"ActionBody": "http://www.website.com/go_here",
+		"ActionType": "open-url",
+		"BgMediaType": "picture",
+		"Image": "http://www.images.com/img.jpg",
+		"BgColor": "#000000",
+		"TextOpacity": 60,
+		"Rows": 4,
+		"Columns": 6
+	}, {
+		"ActionBody": "http://www.website.com/go_here",
+		"ActionType": "open-url",
+		"BgColor": "#85bb65",
+		"Text": "Buy",
+		"TextOpacity": 60,
+		"Rows": 1,
+		"Columns": 6
+	}],
+	"DefaultHeight": true
+};
+
+const message = new RichMedia(SAMPLE_RICH_MEDIA, [optionalKeyboard], [optionalTrackingData]);
 ```
 
 ## Sample project
