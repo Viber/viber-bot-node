@@ -322,7 +322,7 @@ bot.onError(err => logger.error(err));
 | Param | Type | Description |
 | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
-| subscribed | boolean | Is the user already subscribed to the PA |
+| subscribed | boolean | Indicates whether a user is already subscribed |
 | onFinish | [`ConversationStartedOnFinishCallback`](#ConversationStartedOnFinishCallback) | When called, a [`Message`](#MessageObject) will be sent to the client |
 
 Conversation started event fires when a user opens a conversation with the PA using the “message” button (found on the PA’s info screen) or using a [deep link](https://developers.viber.com/tools/deep-links/index.html).
