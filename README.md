@@ -117,7 +117,9 @@ Have you noticed how we created the `TextMessage` instance? There's a all bunch 
 Creating them is easy! Every message object has its own unique constructor corresponding to its API implementation. Click on each type in the list to find out more. Check out the full API documentation for more advanced uses.
 
 ## API
+
 ### Viber Bot
+
 `require('viber-bot').Bot`
 
 An event emitter, emitting events [described here](#onEvent).
@@ -139,6 +141,7 @@ An event emitter, emitting events [described here](#onEvent).
 
 
 <a name="newViberBot"></a>
+
 ### New ViberBot()
 
 | Param | Type | Description |
@@ -150,7 +153,9 @@ An event emitter, emitting events [described here](#onEvent).
 | options.registerToEvents | `array` | example: ["message", "delivered"] |
 
 <a name="onEvent"></a>
+
 ### bot.on(handler)
+
 `require('viber-bot').Events`
 
 | Param | Type |
@@ -182,7 +187,9 @@ bot.on(BotEvents.SUBSCRIBED, response =>
 ```
 
 <a name="getBotProfile"></a>
+
 ### bot.getBotProfile()
+
 Returns a `promise.JSON` [with the following JSON](https://developers.viber.com/api/rest-bot-api/index.html#get-account-info).
 
 ```js
@@ -190,7 +197,9 @@ bot.getBotProfile().then(response => console.log(`Public Account Named: ${respon
 ```
 
 <a name="getUserDetails"></a>
+
 ### bot.getUserDetails(userProfile)
+
 | Param | Type | Description |
 | --- | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
@@ -205,7 +214,9 @@ bot.onSubscribe(response => bot.getUserDetails(response.userProfile)
 ```
 
 <a name="getOnlineStatus"></a>
+
 ### bot.getOnlineStatus(viberUserIds)
+
 | Param | Type | Description |
 | --- | --- | --- |
 | viberUserIds | `array of strings` | Collection of Viber user ids |
@@ -217,7 +228,9 @@ bot.getOnlineStatus(["a1, "a2"]).then(onlineStatus => console.log(onlineStatus))
 ```
 
 <a name="setWebhook"></a>
+
 ### bot.setWebhook(url)
+
 | Param | Type | Description |
 | --- | --- | --- |
 | url | `string` | Trusted SSL Certificate |
@@ -229,7 +242,9 @@ bot.setWebhook("https://my.bot/incoming").then(() => yourBot.doSomething()).catc
 ```
 
 <a name="sendMessage"></a>
+
 ### bot.sendMessage(userProfile, messages, [optionalTrackingData])
+
 | Param | Type | Description |
 | --- | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
@@ -255,7 +270,9 @@ bot.sendMessage(userProfile, [
 ```
 
 <a name="middleware"></a>
+
 ### bot.middleware()
+
 Returns a middleware implementation to use with `http/https`.
 
 ```js
@@ -264,13 +281,16 @@ https.createServer({ key: ... , cert: ... , ca: ... }, bot.middleware()).listen(
 ```
 
 <a name="onTextMessage"></a>
+
 ### bot.onTextMessage(regex, handler)
+
 | Param | Type |
 | --- | --- |
 | regex | `regular expression` |
 | handler | [`TextMessageHandlerCallback`](#TextMessageHandlerCallback) |
 
 <a name="TextMessageHandlerCallback"></a>
+
 ##### TextMessageHandlerCallback: `function (message, response) {}`
 
 ```js
@@ -279,12 +299,15 @@ bot.onTextMessage(/^hi|hello$/i, (message, response) =>
 ```
 
 <a name="onError"></a>
+
 ### bot.onError(handler)
+
 | Param | Type |
 | --- | --- |
 | handler | [`ErrorHandlerCallback`](#ErrorHandlerCallback) |
 
 <a name="ErrorHandlerCallback"></a>
+
 ##### ErrorHandlerCallback: `function (err) {}`
 
 ```js
@@ -292,7 +315,9 @@ bot.onError(err => logger.error(err));
 ```
 
 <a name="onConversationStarted"></a>
+
 ### bot.onConversationStarted(userProfile, subscribed, onFinish)
+
 | Param | Type | Description |
 | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
@@ -304,6 +329,7 @@ Conversation started event fires when a user opens a conversation with the PA us
 This event is **not** considered a subscribe event and doesn't allow the PA to send messages to the user; however, it will allow sending one "welcome message" to the user.
 
 <a name="ConversationStartedOnFinishCallback"></a>
+
 ##### ConversationStartedOnFinishCallback: `function (responseMessage, optionalTrackingData) {}`
 
 The `ConversationStartedOnFinishCallback` accepts `null` and [`MessageObject`](#MessageObject) only. Otherwise, an exception is thrown.
@@ -317,12 +343,15 @@ bot.onConversationStarted((userProfile, onFinish) =>
 ```
 
 <a name="onSubscribe"></a>
+
 ### bot.onSubscribe(handler)
+
 | Param | Type |
 | --- | --- |
 | handler | [`SubscribeResponseHandlerCallback`](#SubscribeResponseHandlerCallback) |
 
 <a name="SubscribeResponseHandlerCallback"></a>
+
 ##### SubscribeResponseHandlerCallback: `function (response) {}`
 
 ```js
@@ -330,12 +359,15 @@ bot.onSubscribe(response => console.log(`Subscribed: ${response.userProfile.name
 ```
 
 <a name="onUnsubscribe"></a>
+
 ### bot.onUnsubscribe(handler)
+
 | Param | Type |
 | --- | --- |
 | handler | [`UnsubscribeResponseHandlerCallback`](#UnsubscribeResponseHandlerCallback) |
 
 <a name="UnsubscribeResponseHandlerCallback"></a>
+
 ##### UnsubscribeResponseHandlerCallback: `function (userId) {}`
 
 ```js
@@ -343,7 +375,9 @@ bot.onUnsubscribe(userId => console.log(`Unsubscribed: ${userId}`));
 ```
 
 <a name="ResponseObject"></a>
+
 ### Response object
+
 Members:
 
 | Param | Type | Notes |
@@ -354,7 +388,9 @@ Members:
     * [.send(messages, [optionalTrackingData])](#sendMessage) ⇒ `promise.JSON`
 
 <a name="UserProfile"></a>
+
 ### UserProfile object
+
 Members:
 
 | Param | Type | Notes |
@@ -366,6 +402,7 @@ Members:
 | language | `string` | **currently set in CONVERSATION_STARTED event only** |
 
 <a name="MessageObject"></a>
+
 ### Message Object
 
 ```javascript
@@ -376,6 +413,7 @@ const PictureMessage  = require('viber-bot').Message.Picture;
 const VideoMessage    = require('viber-bot').Message.Video;
 const LocationMessage = require('viber-bot').Message.Location;
 const StickerMessage  = require('viber-bot').Message.Sticker;
+const RichMediaMessage  = require('viber-bot').Message.Rich;
 ```
 
 **Common Members for `Message` interface**:
@@ -394,7 +432,9 @@ const StickerMessage  = require('viber-bot').Message.Sticker;
 | optionalTrackingData | `JSON` | Data to be saved on Viber Client device, and sent back each time message is received |
 
 <a name="TextMessage"></a>
+
 #### TextMessage object
+
 | Member | Type
 | --- | --- |
 | text | `string` |
@@ -405,7 +445,9 @@ console.log(message.text);
 ```
 
 <a name="UrlMessage"></a>
+
 #### UrlMessage object
+
 | Member | Type
 | --- | --- |
 | url | `string` |
@@ -416,7 +458,9 @@ console.log(message.url);
 ```
 
 <a name="ContactMessage"></a>
+
 #### ContactMessage object
+
 | Member | Type
 | --- | --- |
 | contactName | `string` |
@@ -428,7 +472,9 @@ console.log(`${message.contactName}, ${message.contactPhoneNumber}`);
 ```
 
 <a name="PictureMessage"></a>
+
 #### PictureMessage object
+
 | Member | Type
 | --- | --- |
 | url | `string` |
@@ -441,7 +487,9 @@ console.log(`${message.url}, ${message.text}, ${message.thumbnail}`);
 ```
 
 <a name="VideoMessage"></a>
+
 #### VideoMessage object
+
 | Member | Type
 | --- | --- |
 | url | `string` |
@@ -455,7 +503,9 @@ console.log(`${message.url}, ${message.size}, ${message.thumbnail}, ${message.du
 ```
 
 <a name="LocationMessage"></a>
+
 #### LocationMessage object
+
 | Member | Type
 | --- | --- |
 | latitude | `float` |
@@ -467,7 +517,9 @@ console.log(`${message.latitude}, ${message.longitude}`);
 ```
 
 <a name="StickerMessage"></a>
+
 #### StickerMessage object
+
 | Member | Type
 | --- | --- |
 | stickerId | `int` |
@@ -478,7 +530,9 @@ console.log(message.stickerId);
 ```
 
 <a name="FileMessage"></a>
+
 #### FileMessage object
+
 | Member | Type
 | --- | --- |
 | url | `string` |
