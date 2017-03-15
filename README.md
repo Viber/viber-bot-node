@@ -565,7 +565,7 @@ const SAMPLE_RICH_MEDIA = {
 		"Image": "http://www.images.com/img.jpg",
 		"BgColor": "#000000",
 		"TextOpacity": 60,
-		"Rows": 4,
+		"Rows": 1,
 		"Columns": 6
 	}, {
 		"ActionBody": "http://www.website.com/go_here",
@@ -575,8 +575,7 @@ const SAMPLE_RICH_MEDIA = {
 		"TextOpacity": 60,
 		"Rows": 1,
 		"Columns": 6
-	}],
-	"DefaultHeight": true
+	}]
 };
 
 const message = new RichMedia(SAMPLE_RICH_MEDIA, [optionalKeyboard], [optionalTrackingData]);
