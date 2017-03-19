@@ -320,7 +320,7 @@ bot.onError(err => logger.error(err));
 ### bot.onConversationStarted(userProfile, subscribed, onFinish)
 
 | Param | Type | Description |
-| --- | --- |
+| --- | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
 | subscribed | boolean | Indicates whether a user is already subscribed |
 | onFinish | [`ConversationStartedOnFinishCallback`](#ConversationStartedOnFinishCallback) | When called, a [`Message`](#MessageObject) will be sent to the client |
