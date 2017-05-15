@@ -191,7 +191,7 @@ bot.on(BotEvents.SUBSCRIBED, response =>
 
 ### bot.getBotProfile()
 
-Returns a `promise.JSON` [with the following JSON](https://developers.viber.com/api/rest-bot-api/index.html#get-account-info).
+Returns a `promise.JSON` [with the following JSON](https://developers.viber.com/docs/api/rest-bot-api/#get-account-info).
 
 ```js
 bot.getBotProfile().then(response => console.log(`Public Account Named: ${response.name}`));
@@ -325,7 +325,7 @@ bot.onError(err => logger.error(err));
 | subscribed | boolean | Indicates whether a user is already subscribed |
 | onFinish | [`ConversationStartedOnFinishCallback`](#ConversationStartedOnFinishCallback) | When called, a [`Message`](#MessageObject) will be sent to the client |
 
-Conversation started event fires when a user opens a conversation with the PA using the “message” button (found on the PA’s info screen) or using a [deep link](https://developers.viber.com/tools/deep-links/index.html).
+Conversation started event fires when a user opens a conversation with the PA using the “message” button (found on the PA’s info screen) or using a [deep link](https://developers.viber.com/docs/tools/deep-links/).
 
 This event is **not** considered a subscribe event and doesn't allow the PA to send messages to the user; however, it will allow sending one "welcome message" to the user.
 
@@ -429,7 +429,7 @@ const RichMediaMessage  = require('viber-bot').Message.Rich;
 
 | Param | Type | Description |
 | --- | --- | --- |
-| optionalKeyboard | `JSON` | [Writing Custom Keyboards](https://developers.viber.com/tools/keyboards/index.html) |
+| optionalKeyboard | `JSON` | [Writing Custom Keyboards](https://developers.viber.com/docs/tools/keyboards/) |
 | optionalTrackingData | `JSON` | Data to be saved on Viber Client device, and sent back each time message is received |
 
 <a name="TextMessage"></a>
