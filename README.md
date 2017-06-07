@@ -414,7 +414,7 @@ const PictureMessage  = require('viber-bot').Message.Picture;
 const VideoMessage    = require('viber-bot').Message.Video;
 const LocationMessage = require('viber-bot').Message.Location;
 const StickerMessage  = require('viber-bot').Message.Sticker;
-const RichMediaMessage  = require('viber-bot').Message.Rich;
+const RichMediaMessage  = require('viber-bot').Message.RichMedia;
 ```
 
 **Common Members for `Message` interface**:
