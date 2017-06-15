@@ -135,7 +135,7 @@ An event emitter, emitting events [described here](#onEvent).
     * [.on(handler)](#onEvent)
     * [.onTextMessage(regex, handler)](#onTextMessage) : `handler` = [`TextMessageHandlerCallback`](#TextMessageHandlerCallback)
     * [.onError(handler)](#onError) : `handler` = [`ErrorHandlerCallback`](#ErrorHandlerCallback)
-    * [.onConversationStarted(userProfile, onFinish)](#onConversationStarted) : `onFinish` = [`ConversationStartedOnFinishCallback`](#ConversationStartedOnFinishCallback)
+    * [.onConversationStarted(userProfile, isSubscribed, context, onFinish)](#onConversationStarted) : `onFinish` = [`ConversationStartedOnFinishCallback`](#ConversationStartedOnFinishCallback)
     * [.onSubscribe(handler)](#onSubscribe) : `handler` = [`SubscribeResponseHandlerCallback`](#SubscribeResponseHandlerCallback)
     * [.onUnsubscribe(handler)](#onUnsubscribe) : `handler` = [`UnsubscribeResponseHandlerCallback`](#UnsubscribeResponseHandlerCallback)
     * [.middleware()](#middleware)
@@ -317,12 +317,13 @@ bot.onError(err => logger.error(err));
 
 <a name="onConversationStarted"></a>
 
-### bot.onConversationStarted(userProfile, subscribed, onFinish)
+### bot.onConversationStarted(userProfile, isSubscribed, context, onFinish)
 
 | Param | Type | Description |
 | --- | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
-| subscribed | boolean | Indicates whether a user is already subscribed |
+| isSubscribed | boolean | Indicates whether a user is already subscribed |
+| context | String | Any additional parameters added to the deep link used to access the conversation passed as a string |
 | onFinish | [`ConversationStartedOnFinishCallback`](#ConversationStartedOnFinishCallback) | When called, a [`Message`](#MessageObject) will be sent to the client |
 
 Conversation started event fires when a user opens a conversation with the PA using the “message” button (found on the PA’s info screen) or using a [deep link](https://developers.viber.com/docs/tools/deep-links/).
@@ -336,10 +337,10 @@ This event is **not** considered a subscribe event and doesn't allow the PA to s
 The `ConversationStartedOnFinishCallback` accepts `null` and [`MessageObject`](#MessageObject) only. Otherwise, an exception is thrown.
 
 ```js
-bot.onConversationStarted((userProfile, onFinish) =>
+bot.onConversationStarted((userProfile, isSubscribed, context, onFinish) =>
 	onFinish(new TextMessage(`Hi, ${userProfile.name}! Nice to meet you.`)));
 
-bot.onConversationStarted((userProfile, onFinish) =>
+bot.onConversationStarted((userProfile, isSubscribed, context, onFinish) =>
     onFinish(new TextMessage(`Thanks`), { saidThanks: true }));
 ```
 
