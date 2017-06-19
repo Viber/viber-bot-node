@@ -19,8 +19,3 @@ exports.testBuildTextMessageWithKeyboard = test => {
 	test.deepEqual(message.keyboard, keyboard);
 	test.done();
 };
-
-exports.testBuildNullTextMessage = test => {
-	test.throws(() => new TextMessage(null));
-	test.done();
-};

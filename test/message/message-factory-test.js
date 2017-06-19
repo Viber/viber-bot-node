@@ -238,7 +238,7 @@ exports.messageFactory = {
 		const message = new MessageFactory().createMessageFromJson(stickerMessage);
 
 		test.ok(message instanceof StickerMessage, "message should be of type StickerMessage");
-		test.deepEqual(message.toJson(), { type: 'sticker', sticker_id: 5536 });
+		test.deepEqual(message.toJson(), { type: 'sticker', sticker_id: 5536 }); // eslint-disable-line
 		test.done();
 	}
 };

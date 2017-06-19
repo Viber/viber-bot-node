@@ -45,8 +45,3 @@ exports.testBuildRichMediaMessageWithKeyboard = test => {
 	test.deepEqual(message.keyboard, keyboard);
 	test.done();
 };
-
-exports.testBuildNullRichMediaMessage = test => {
-	test.throws(() => new RichMediaMessage(null));
-	test.done();
-};

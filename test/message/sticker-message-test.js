@@ -19,8 +19,3 @@ exports.testBuildStickerMessageWithKeyboard = test => {
 	test.deepEqual(message.keyboard, keyboard);
 	test.done();
 };
-
-exports.testBuildNullStickerMessage = test => {
-	test.throws(() => new StickerMessage(null));
-	test.done();
-};

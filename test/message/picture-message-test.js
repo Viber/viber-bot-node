@@ -34,8 +34,3 @@ exports.testBuildPictureMessageWithKeyboard = test => {
 	test.deepEqual(message.keyboard, keyboard);
 	test.done();
 };
-
-exports.testBuildNullPictureMessage = test => {
-	test.throws(() => new PictureMessage(null));
-	test.done();
-};

@@ -21,8 +21,3 @@ exports.testBuildFileMessageWithKeyboard = test => {
 	test.deepEqual(message.keyboard, keyboard);
 	test.done();
 };
-
-exports.testBuildNullFileMessage = test => {
-	test.throws(() => new FileMessage(null));
-	test.done();
-};

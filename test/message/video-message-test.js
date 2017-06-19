@@ -42,8 +42,3 @@ exports.testBuildVideoMessageWithKeyboard = test => {
 	test.deepEqual(message.keyboard, keyboard);
 	test.done();
 };
-
-exports.testBuildNullVideoMessage = test => {
-	test.throws(() => new VideoMessage(null));
-	test.done();
-};

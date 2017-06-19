@@ -29,8 +29,3 @@ exports.testBuildUrlMessageWithKeyboard = test => {
 	test.deepEqual(message.keyboard, keyboard);
 	test.done();
 };
-
-exports.testBuildNullUrlMessage = test => {
-	test.throws(() => new UrlMessage(null));
-	test.done();
-};

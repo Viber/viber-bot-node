@@ -23,8 +23,3 @@ exports.testBuildContactMessageWithKeyboard = test => {
 	test.deepEqual(message.keyboard, keyboard);
 	test.done();
 };
-
-exports.testBuildNullContactMessage = test => {
-	test.throws(() => new ContactMessage(null));
-	test.done();
-};

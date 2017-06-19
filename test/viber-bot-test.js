@@ -3,6 +3,8 @@
 const TestEnvironmentConfiguration = require(__dirname + "/util/test-environment-configuration");
 const ViberBot = require(__dirname + "/../lib/viber-bot");
 const EventConsts = require(__dirname + "/../lib/event-consts");
+const TextMessage = require(__dirname + "/../lib/message/text-message");
+const UserProfile = require(__dirname + "/../lib/user-profile");
 
 
 exports.creatingBotObject = {
@@ -44,7 +46,7 @@ exports.creatingBotObject = {
 	createBotWithMissingAvatarField: test => {
 		test.throws(() => new ViberBot(TestEnvironmentConfiguration.MockLogger, {
 			authToken: "123AB",
-			name: "Test",
+			name: "Test"
 		}));
 		test.done();
 	},
@@ -81,5 +83,67 @@ exports.creatingBotObject = {
 			subscribed: false,
 			context: sampleContext
 		});
+	}
+};
+
+exports.sendMessage = {
+	testSendMessagesSendsAllParams: test => {
+		test.expect(7);
+		const bot = new ViberBot(TestEnvironmentConfiguration.MockLogger, {
+			authToken: "123AB",
+			avatar: "http://avatar.com/image.jpg",
+			name: "myTestBot"
+		});
+
+		const receiver = "to viber user";
+		const sampleUserProfile = { id: receiver };
+		const text = "sample message";
+		const sampleTrackingData = { value: "sent 1 message" };
+		const sampleKeyboard = { button: { bgColor: "#FFFFFF" }};
+		const sampleChatId = "sample chatId";
+		const sampleMinApiVersion = 2;
+		const sampleMessage = new TextMessage(text, sampleKeyboard, null, null, null, sampleMinApiVersion);
+
+		bot._client = {
+			sendMessage: function(receiverId, messageType, message, trackingData, keyboard, chatId, minApiVersion) {
+				test.equals(receiverId, receiver);
+				test.equals(messageType, TextMessage.getType());
+				test.equals(trackingData, sampleTrackingData);
+				test.equals(keyboard, sampleKeyboard);
+				test.equals(chatId, sampleChatId);
+				test.equals(minApiVersion, sampleMinApiVersion);
+				test.equals(message.text, sampleMessage.text);
+				test.done();
+			}
+		};
+
+		bot.sendMessage(sampleUserProfile, sampleMessage, sampleTrackingData, sampleChatId);
+	}
+};
+
+exports.postToPublicChat = {
+	testPostToPublicChatSendsAllParams: test => {
+		test.expect(4);
+		const bot = new ViberBot(TestEnvironmentConfiguration.MockLogger, {
+			authToken: "123AB",
+			avatar: "http://avatar.com/image.jpg",
+			name: "myTestBot"
+		});
+
+		const sender = new UserProfile('sender id', 'sender name', 'avatar url');
+		const minApiVersion = 2;
+		const message = new TextMessage("my text message", null, null, null, null, minApiVersion);
+
+		bot._client = {
+			postToPublicChat: function(senderProfile, messageType, messageData, optionalMinApiVersion) {
+				test.equals(senderProfile, sender);
+				test.equals(messageType, TextMessage.getType());
+				test.equals(messageData.text, message.text);
+				test.equals(optionalMinApiVersion, minApiVersion);
+				test.done();
+			}
+		};
+
+		bot.postToPublicChat(sender, message);
 	}
 };

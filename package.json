@@ -1,9 +1,9 @@
 {
   "name": "viber-bot",
-  "version": "1.0.9",
+  "version": "1.0.11",
   "description": "A bot interface to work with Viber API",
   "author": "Viber LTD",
-  "engine-strict" : true,
+  "engine-strict": true,
   "engines": {
     "node": ">=5",
     "npm": ">=3"
@@ -20,13 +20,15 @@
   "main": "lib/index.js",
   "license": "Apache 2.0",
   "dependencies": {
-    "underscore": "^1.8.3",
+    "async": "^2.0.1",
     "body-parser": "^1.15.2",
     "express": "^4.14.0",
-    "needle": "^1.1.0"
+    "needle": "^1.1.0",
+    "underscore": "^1.8.3"
   },
   "devDependencies": {
     "eslint": "^2.10.1",
+		"express": "^4.14.0",
     "nodeunit": "~0.10.2"
   }
 }

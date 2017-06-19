@@ -24,8 +24,3 @@ exports.testBuildLocationMessageWithKeyboard = test => {
 	test.deepEqual(message.keyboard, keyboard);
 	test.done();
 };
-
-exports.testBuildNullLocationMessage = test => {
-	test.throws(() => new LocationMessage(null));
-	test.done();
-};
