@@ -259,11 +259,11 @@ bot.setWebhook("https://my.bot/incoming").then(() => yourBot.doSomething()).catc
 Returns a `promise.ARRAY` array of message tokens.
 
 ```js
-// single message
+// Single message
 const TextMessage = require('viber-bot').Message.Text;
 bot.sendMessage(userProfile, new TextMessage("Thanks for shopping with us"));
 
-// multiple messages
+// Multiple messages
 const UrlMessage  = require('viber-bot').Message.Url;
 bot.sendMessage(userProfile, [
     new TextMessage("Here's the product you've requested:"),
