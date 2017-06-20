@@ -133,6 +133,7 @@ An event emitter, emitting events [described here](#onEvent).
     * [.getOnlineStatus(viberUserIds)](#getOnlineStatus) ⇒ `promise.JSON`
     * [.setWebhook(url)](#setWebhook) ⇒ `promise.JSON`
     * [.sendMessage(userProfile, messages, [optionalTrackingData])](#sendMessage) ⇒ `promise.ARRAY`
+    * [.postToPublicChat(userProfile, messages)](#postToPublicChat) ⇒ `promise.ARRAY`
     * [.on(handler)](#onEvent)
     * [.onTextMessage(regex, handler)](#onTextMessage) : `handler` = [`TextMessageHandlerCallback`](#TextMessageHandlerCallback)
     * [.onError(handler)](#onError) : `handler` = [`ErrorHandlerCallback`](#ErrorHandlerCallback)
@@ -265,6 +266,36 @@ bot.sendMessage(userProfile, new TextMessage("Thanks for shopping with us"));
 // multiple messages
 const UrlMessage  = require('viber-bot').Message.Url;
 bot.sendMessage(userProfile, [
+    new TextMessage("Here's the product you've requested:"),
+    new UrlMessage("http://my.ecommerce.site/product1"),
+    new TextMessage("Shipping time: 1-3 business days")
+]);
+```
+
+<a name="postToPublicChat"></a>
+
+### bot.postToPublicChat(userProfile, messages)
+The Viber post API allows the PA owner to post a message in the Public Account’s public chat.
+
+| Param | Type | Description |
+| --- | --- | --- |
+| userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
+| messages | `object or array` | Can be `Message` object or array of `Message` objects |
+
+**Note:** When passing array of messages to `postToPublicChat`, messages will be sent by explicit order (the order which they were given to the `postToPublicChat` method).
+
+**Note:** This method does not support keyboard attachment. 
+
+Returns a `promise.ARRAY` array of message tokens.
+
+```js
+// Single message
+const TextMessage = require('viber-bot').Message.Text;
+bot.postToPublicChat(userProfile, new TextMessage("Thanks for shopping with us"));
+
+// Multiple messages
+const UrlMessage  = require('viber-bot').Message.Url;
+bot.postToPublicChat(userProfile, [
     new TextMessage("Here's the product you've requested:"),
     new UrlMessage("http://my.ecommerce.site/product1"),
     new TextMessage("Shipping time: 1-3 business days")
