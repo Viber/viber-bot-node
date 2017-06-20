@@ -114,6 +114,7 @@ Have you noticed how we created the `TextMessage` instance? There's a all bunch 
 * [Sticker Message](#StickerMessage)
 * [File Message](#FileMessage)
 * [Rich Media Message](#RichMediaMessage)
+* [Keyboard Message](#KeyboardMessage)
 
 Creating them is easy! Every message object has its own unique constructor corresponding to its API implementation. Click on each type in the list to find out more. Check out the full API documentation for more advanced uses.
 
@@ -580,6 +581,36 @@ const SAMPLE_RICH_MEDIA = {
 };
 
 const message = new RichMedia(SAMPLE_RICH_MEDIA, [optionalKeyboard], [optionalTrackingData]);
+```
+
+<a name="KeyboardMessage"></a>
+
+#### KeyboardMessage object
+
+| Member | Type
+| --- | --- |
+| keyboard | `JSON` |
+
+```javascript
+
+const SAMPLE_KEYBOARD = {
+	"Type": "keyboard",
+	"Revision": 1,
+	"Buttons": [
+		{
+			"Columns": 3,
+			"Rows": 2,
+			"BgColor": "#e6f5ff",
+			"BgMedia": "http://www.jqueryscript.net/images/Simplest-Responsive-jQuery-Image-Lightbox-Plugin-simple-lightbox.jpg",
+			"BgMediaType": "picture",
+			"BgLoop": true,
+			"ActionType": "reply",
+			"ActionBody": "whatwhatwhatwhatwhatwhat"
+		}
+	]
+};
+
+const message = new KeyboardMessage(SAMPLE_KEYBOARD, [optionalTrackingData]);
 ```
 
 ## Sample project
