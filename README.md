@@ -417,6 +417,7 @@ const VideoMessage    = require('viber-bot').Message.Video;
 const LocationMessage = require('viber-bot').Message.Location;
 const StickerMessage  = require('viber-bot').Message.Sticker;
 const RichMediaMessage  = require('viber-bot').Message.RichMedia;
+const KeyboardMessage  = require('viber-bot').Message.Keyboard;
 ```
 
 **Common Members for `Message` interface**:
@@ -605,7 +606,7 @@ const SAMPLE_KEYBOARD = {
 			"BgMediaType": "picture",
 			"BgLoop": true,
 			"ActionType": "reply",
-			"ActionBody": "whatwhatwhatwhatwhatwhat"
+			"ActionBody": "Yes"
 		}
 	]
 };
