@@ -284,7 +284,7 @@ The Viber post API allows the PA owner to post a message in the Public Accountâ€
 
 **Note:** When passing array of messages to `postToPublicChat`, messages will be sent by explicit order (the order which they were given to the `postToPublicChat` method).
 
-**Note:** This method does not support keyboard attachment. 
+**Note:** This method does not support keyboard attachment.
 
 Returns a `promise.ARRAY` array of message tokens.
 
@@ -455,8 +455,8 @@ const KeyboardMessage  = require('viber-bot').Message.Keyboard;
 
 | Param | Type | Description |
 | --- | --- | --- |
-| timestamp | `long` | Epoch time |
-| token | `long` | Sequential message token |
+| timestamp | `string` | Epoch time |
+| token | `string` | Sequential message token |
 | trackingData | `JSON` | JSON Tracking Data from Viber Client |
 
 **Common Constructor Arguments `Message` interface**:
@@ -571,7 +571,7 @@ console.log(message.stickerId);
 | Member | Type
 | --- | --- |
 | url | `string` |
-| sizeInBytes | `long` |
+| sizeInBytes | `int` |
 | filename | `string` |
 
 ```javascript

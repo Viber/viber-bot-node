@@ -147,3 +147,29 @@ exports.postToPublicChat = {
 		bot.postToPublicChat(sender, message);
 	}
 };
+
+exports.eventHandling = {
+	testBigIntTokenInEvent: test => {
+		test.expect(1);
+		const bot = new ViberBot(TestEnvironmentConfiguration.MockLogger, {
+			authToken: "123AB",
+			avatar: "http://avatar.com/image.jpg",
+			name: "myTestBot"
+		});
+
+		bot.on("webhook", data => {
+			test.equals("5058590812907389764", data.message_token);
+			test.done();
+		});
+
+		const webhookEvent = '{ "event": "webhook", "message_token": 5058590812907389764 }';
+
+		const mockedStream = new require('stream').Readable();
+		mockedStream._read = function(size) {};
+
+		bot._registerStreamAndHandleEvents(mockedStream);
+
+		mockedStream.emit('data', webhookEvent);
+		mockedStream.emit('end');
+	}
+};
