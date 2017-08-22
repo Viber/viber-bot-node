@@ -118,6 +118,39 @@ exports.sendMessage = {
 		};
 
 		bot.sendMessage(sampleUserProfile, sampleMessage, sampleTrackingData, sampleChatId);
+	},
+
+	testSendMultipleMessages: test => {
+		test.expect(11);
+		const bot = new ViberBot(TestEnvironmentConfiguration.MockLogger, {
+			authToken: "123AB",
+			avatar: "http://avatar.com/image.jpg",
+			name: "myTestBot"
+		});
+
+		const receiver = "to viber user 2";
+		const sampleUserProfile = { id: receiver };
+		const text = "sample message 2";
+		const sampleChatId = "sample chatId";
+		const sampleMinApiVersion = 2;
+		const sampleMessage = new TextMessage(text, null, null, null, null, sampleMinApiVersion);
+
+		bot._client = {
+			sendMessage: function(receiverId, messageType, message, trackingData, keyboard, chatId, minApiVersion) {
+				test.equals(receiverId, receiver);
+				test.equals(messageType, TextMessage.getType());
+				test.equals(chatId, sampleChatId);
+				test.equals(minApiVersion, sampleMinApiVersion);
+				test.equals(message.text, sampleMessage.text);
+				return Promise.resolve({ status: 0, message_token: "token" }); // eslint-disable-line
+			}
+		};
+
+		bot.sendMessage(sampleUserProfile, [sampleMessage, sampleMessage], null, sampleChatId)
+			.then(resp => {
+				test.equals(resp.length, 2);
+				test.done();
+			}).catch(err => test.done(err));
 	}
 };
 

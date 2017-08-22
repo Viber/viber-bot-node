@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require('underscore');
+
 const ViberClient = require(__dirname + '/../lib/viber-client');
 const TestEnvironmentConfiguration = require(__dirname + "/util/test-environment-configuration");
 const ViberBot = require(__dirname + "/../lib/viber-bot");
@@ -116,6 +118,47 @@ module.exports = {
 			const client = new ViberClient(TestEnvironmentConfiguration.MockLogger, SAMPLE_BOT, apiUrl, []);
 
 			client.postToPublicChat(sender, messageType, messageData, minApiVersion).then(function(data) {
+				server.close();
+				test.done();
+			}, function(err) {
+				test.ok(err);
+				server.close();
+				test.done();
+			});
+		});
+	},
+
+	testSendMessageWithoutReceiver: test => {
+		test.expect(7);
+
+		const receiver = null;
+		const messageType = "text";
+		const messageData = {
+			text: "Hi! how are you?"
+		};
+		const trackingData = { value: "sent 1 message" };
+		const keyboard = { button: { bgColor: "#FFFFFF" }};
+		const chatId = "sample chatId";
+		const minApiVersion = 2;
+
+
+		function requestHandler(req, res) {
+			test.ok(_.isUndefined(req.body.receiver));
+			test.equals(req.body.tracking_data, JSON.stringify(trackingData));
+			test.equals(JSON.stringify(req.body.keyboard), JSON.stringify(keyboard));
+			test.equals(req.body.chat_id, chatId);
+			test.equals(req.body.min_api_version, minApiVersion);
+			test.equals(req.body.text, messageData.text);
+			return res.status(200).send({ status: 0 });
+		}
+
+		return startServer(0, requestHandler, function(err, server) {
+			test.ok(!err);
+
+			const apiUrl = "http://127.0.0.1:" + server.address().port;
+			const client = new ViberClient(TestEnvironmentConfiguration.MockLogger, SAMPLE_BOT, apiUrl, []);
+
+			client.sendMessage(receiver, messageType, messageData, trackingData, keyboard, chatId, minApiVersion).then(function(data) {
 				server.close();
 				test.done();
 			}, function(err) {
