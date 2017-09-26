@@ -1,14 +1,17 @@
 # Viber Node.JS Bot API
 Use this library to develop a bot for the Viber platform.
-The library is available on [GitHub](https://github.com/Viber/viber-bot-node) as well as a package on [npm](https://www.npmjs.com/package/viber-bot).
+The library is available on **[GitHub](https://github.com/Viber/viber-bot-node)** as well as a package on [npm](https://www.npmjs.com/package/viber-bot).
 
 ## License
 This library is released under the terms of the Apache 2.0 license. See [License](https://github.com/Viber/viber-bot-node/blob/master/LICENSE.md) for more information.
 
 ## Library Prerequisites
-* Node >= 5.0.0
-* Get your Viber Public Account authentication token. Your token is generated and provided to you during the Public Account creation process. As a Public Account admin, you can always find the account token in the "edit info" page.
-* SSL Certification - You'll need a trusted (ca.pem) certificate, not self-signed. You can find one at [Let's Encrypt](https://letsencrypt.org/) or buy one.
+
+1. Node >= 5.0.0
+1. An Active Viber account on a platform which supports Public Accounts/ bots (iOS/Android). This account will automatically be set as the account administrator during the account creation process.
+1. Active Public Account/ bot.
+1. Account authentication token - unique account identifier used to validate your account in all API requests. Once your account is created your authentication token will appear in the account’s “edit info” screen (for admins only). Each request posted to Viber by the account will need to contain the token.
+1. Certification - You'll need a trusted (ca.pem) certificate, not self-signed. You can find one at [Let's Encrypt](https://letsencrypt.org/) or buy one.
 
 ## Installation
 This library is released on [npm](https://www.npmjs.com/package/viber-bot).
@@ -19,7 +22,7 @@ Install with [`npm install viber-bot --save`](https://www.npmjs.com/package/vibe
 ### Express
 If you are already using express or equivalent, you can do the following:
 
-```javascript
+```js
 app.use("/viber/webhook", bot.middleware());
 ```
 Please revisit [app.use()](http://expressjs.com/en/api.html#app.use) documentation.
@@ -29,22 +32,22 @@ For more information see [ViberBot.middleware()](#middleware).
 Creating a basic Viber bot is simple:
 
 1. Import `viber-bot` library to your project
-2. Create a Public Account and use the API key from [https://developers.viber.com]()
+2. Create a Public Account or bot and use the API key from [https://developers.viber.com]()
 3. Configure your bot as described in the documentation below
 4. Add the bot as middleware to your server with `bot.middleware()`
 5. Start your web server
-6. Call setWebhook(url) with your web server url
+6. Call `setWebhook(url)` with your web server url
 
 ### Creating an echo Bot
 Firstly, let's *import and configure* our bot:
 
-```javascript
+```js
 'use strict';
 
-const ViberBot  = require('viber-bot').Bot;
+const ViberBot = require('viber-bot').Bot;
 const BotEvents = require('viber-bot').Events;
 
-const bot    = new ViberBot({
+const bot = new ViberBot({
 	authToken: YOUR_AUTH_TOKEN_HERE,
 	name: "EchoBot",
 	avatar: "http://viber.com/avatar.jpg" // It is recommended to be 720x720, and no more than 100kb.
@@ -58,12 +61,16 @@ bot.on(BotEvents.MESSAGE_RECEIVED, (message, response) => {
 
 // Wasn't that easy? Let's create HTTPS server and set the webhook:
 const https = require('https');
-const port  = process.env.PORT || 8080;
+const port = process.env.PORT || 8080;
 
 // Viber will push messages sent to this URL. Web server should be internet-facing.
 const webhookUrl = process.env.WEBHOOK_URL;
 
-const httpsOptions = { key: ... , cert: ... , ca: ... }; // Trusted SSL certification (not self-signed).
+const httpsOptions = {
+	key: ...,
+	cert: ...,
+	ca: ...
+}; // Trusted SSL certification (not self-signed).
 https.createServer(httpsOptions, bot.middleware()).listen(port, () => bot.setWebhook(webhookUrl));
 ```
 
@@ -71,21 +78,23 @@ https.createServer(httpsOptions, bot.middleware()).listen(port, () => bot.setWeb
 We provide an option to use [Winston](https://www.npmjs.com/package/winston) logger with our library.
 The only requirement is that you use Winston >= 2.0.0.
 
-```javascript
+```js
 'use strict';
 
-const ViberBot  = require('viber-bot').Bot;
-const winston   = require('winston');
-const toYAML    = require('winston-console-formatter'); // makes the output more friendly
+const ViberBot = require('viber-bot').Bot;
+const winston = require('winston');
+const toYAML = require('winston-console-formatter'); // makes the output more friendly
 
 function createLogger() {
-	const logger = new winston.Logger({ level: "debug" }); // We recommend DEBUG for development
+	const logger = new winston.Logger({
+		level: "debug"
+	}); // We recommend DEBUG for development
 	logger.add(winston.transports.Console, toYAML.config());
 	return logger;
 }
 
 const logger = createLogger();
-const bot    = new ViberBot({
+const bot = new ViberBot({
 	logger: logger,
 	authToken: ...,
 	...
@@ -95,7 +104,7 @@ const bot    = new ViberBot({
 ### Do you supply a basic router for text messages?
 Well funny you ask. Yes we do. But a word of warning - messages sent to your router callback will also be emitted to the `BotEvents.MESSAGE_RECEIVED` event.
 
-```javascript
+```js
 const TextMessage = require('viber-bot').Message.Text;
 
 // A simple regular expression to answer messages in the form of 'hi' and 'hello'.
@@ -207,7 +216,7 @@ bot.getBotProfile().then(response => console.log(`Public Account Named: ${respon
 | --- | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
 
-The `getUserDetails` function will fetch the details of a specific Viber user based on his unique user ID. The user ID can be obtained from the callbacks sent to the PA regrading user's actions. This request can be sent twice during a 12 hours period for each user ID.
+The `getUserDetails` function will fetch the details of a specific Viber user based on his unique user ID. The user ID can be obtained from the callbacks sent to the account regarding user's actions. This request can be sent twice during a 12 hours period for each user ID.
 
 Returns a `promise.JSON`.
 
@@ -251,10 +260,10 @@ bot.setWebhook("https://my.bot/incoming").then(() => yourBot.doSomething()).catc
 | Param | Type | Description |
 | --- | --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
-| Messages | `object or array` | Can be `Message` object or array of `Message` objects |
+| messages | `object or array` | Can be `Message` object or array of `Message` objects |
 | [optionalTrackingData] | `JSON` | Optional. JSON Object. Returned on every message sent by the client |
 
-*Note*: When passing array of messages to `sendMessage`, messages will be sent by explicit order (the order which they were given to the `sendMessage` method). The library will also cancel all custom keyboards except the last one, sending only the last message keyboard.
+**Note:** When passing array of messages to `sendMessage`, messages will be sent by explicit order (the order which they were given to the `sendMessage` method). The library will also cancel all custom keyboards except the last one, sending only the last message keyboard.
 
 Returns a `promise.ARRAY` array of message tokens.
 
@@ -264,18 +273,18 @@ const TextMessage = require('viber-bot').Message.Text;
 bot.sendMessage(userProfile, new TextMessage("Thanks for shopping with us"));
 
 // Multiple messages
-const UrlMessage  = require('viber-bot').Message.Url;
+const UrlMessage = require('viber-bot').Message.Url;
 bot.sendMessage(userProfile, [
-    new TextMessage("Here's the product you've requested:"),
-    new UrlMessage("http://my.ecommerce.site/product1"),
-    new TextMessage("Shipping time: 1-3 business days")
+	new TextMessage("Here's the product you've requested:"),
+	new UrlMessage("http://my.ecommerce.site/product1"),
+	new TextMessage("Shipping time: 1-3 business days")
 ]);
 ```
 
 <a name="postToPublicChat"></a>
 
 ### bot.postToPublicChat(userProfile, messages)
-The Viber post API allows the PA owner to post a message in the Public Account’s public chat.
+The Viber post API allows the Public Account owner to post a message in the Public Account’s public chat.
 
 | Param | Type | Description |
 | --- | --- | --- |
@@ -284,7 +293,7 @@ The Viber post API allows the PA owner to post a message in the Public Account�
 
 **Note:** When passing array of messages to `postToPublicChat`, messages will be sent by explicit order (the order which they were given to the `postToPublicChat` method).
 
-**Note:** This method does not support keyboard attachment.
+**Note:** This method does not support keyboard attachment. 
 
 Returns a `promise.ARRAY` array of message tokens.
 
@@ -294,11 +303,11 @@ const TextMessage = require('viber-bot').Message.Text;
 bot.postToPublicChat(userProfile, new TextMessage("Thanks for shopping with us"));
 
 // Multiple messages
-const UrlMessage  = require('viber-bot').Message.Url;
+const UrlMessage = require('viber-bot').Message.Url;
 bot.postToPublicChat(userProfile, [
-    new TextMessage("Here's the product you've requested:"),
-    new UrlMessage("http://my.ecommerce.site/product1"),
-    new TextMessage("Shipping time: 1-3 business days")
+	new TextMessage("Here's the product you've requested:"),
+	new UrlMessage("http://my.ecommerce.site/product1"),
+	new TextMessage("Shipping time: 1-3 business days")
 ]);
 ```
 
@@ -310,7 +319,11 @@ Returns a middleware implementation to use with `http/https`.
 
 ```js
 const https = require('https');
-https.createServer({ key: ... , cert: ... , ca: ... }, bot.middleware()).listen(8080);
+https.createServer({
+	key: ...,
+	cert: ...,
+	ca: ...
+}, bot.middleware()).listen(8080);
 ```
 
 <a name="onTextMessage"></a>
@@ -352,15 +365,15 @@ bot.onError(err => logger.error(err));
 ### bot.onConversationStarted(userProfile, isSubscribed, context, onFinish)
 
 | Param | Type | Description |
-| --- | --- | --- |
+| --- | --- |
 | userProfile | [`UserProfile`](#UserProfile) | `UserProfile` object |
 | isSubscribed | boolean | Indicates whether a user is already subscribed |
 | context | String | Any additional parameters added to the deep link used to access the conversation passed as a string |
 | onFinish | [`ConversationStartedOnFinishCallback`](#ConversationStartedOnFinishCallback) | When called, a [`Message`](#MessageObject) will be sent to the client |
 
-Conversation started event fires when a user opens a conversation with the PA using the “message” button (found on the PA’s info screen) or using a [deep link](https://developers.viber.com/docs/tools/deep-links/).
+Conversation started event fires when a user opens a conversation with the Public Account/ bot using the “message” button (found on the account’s info screen) or using a [deep link](https://developers.viber.com/docs/tools/deep-links).
 
-This event is **not** considered a subscribe event and doesn't allow the PA to send messages to the user; however, it will allow sending one "welcome message" to the user.
+This event is **not** considered a subscribe event and doesn't allow the account to send messages to the user; however, it will allow sending one "welcome message" to the user. See [sending a welcome message](#SendingWelcomeMessage) below for more information. 
 
 <a name="ConversationStartedOnFinishCallback"></a>
 
@@ -373,7 +386,9 @@ bot.onConversationStarted((userProfile, isSubscribed, context, onFinish) =>
 	onFinish(new TextMessage(`Hi, ${userProfile.name}! Nice to meet you.`)));
 
 bot.onConversationStarted((userProfile, isSubscribed, context, onFinish) =>
-    onFinish(new TextMessage(`Thanks`), { saidThanks: true }));
+	onFinish(new TextMessage(`Thanks`), {
+		saidThanks: true
+	}));
 ```
 
 <a name="onSubscribe"></a>
@@ -439,16 +454,16 @@ Members:
 
 ### Message Object
 
-```javascript
-const TextMessage     = require('viber-bot').Message.Text;
-const UrlMessage      = require('viber-bot').Message.Url;
-const ContactMessage  = require('viber-bot').Message.Contact;
-const PictureMessage  = require('viber-bot').Message.Picture;
-const VideoMessage    = require('viber-bot').Message.Video;
+```js
+const TextMessage = require('viber-bot').Message.Text;
+const UrlMessage = require('viber-bot').Message.Url;
+const ContactMessage = require('viber-bot').Message.Contact;
+const PictureMessage = require('viber-bot').Message.Picture;
+const VideoMessage = require('viber-bot').Message.Video;
 const LocationMessage = require('viber-bot').Message.Location;
-const StickerMessage  = require('viber-bot').Message.Sticker;
-const RichMediaMessage  = require('viber-bot').Message.RichMedia;
-const KeyboardMessage  = require('viber-bot').Message.Keyboard;
+const StickerMessage = require('viber-bot').Message.Sticker;
+const RichMediaMessage = require('viber-bot').Message.RichMedia;
+const KeyboardMessage = require('viber-bot').Message.Keyboard;
 ```
 
 **Common Members for `Message` interface**:
@@ -463,7 +478,7 @@ const KeyboardMessage  = require('viber-bot').Message.Keyboard;
 
 | Param | Type | Description |
 | --- | --- | --- |
-| optionalKeyboard | `JSON` | [Writing Custom Keyboards](https://developers.viber.com/docs/tools/keyboards/) |
+| optionalKeyboard | `JSON` | [Writing Custom Keyboards](https://developers.viber.com/docs/tools/keyboards) |
 | optionalTrackingData | `JSON` | Data to be saved on Viber Client device, and sent back each time message is received |
 
 <a name="TextMessage"></a>
@@ -474,7 +489,7 @@ const KeyboardMessage  = require('viber-bot').Message.Keyboard;
 | --- | --- |
 | text | `string` |
 
-```javascript
+```js
 const message = new TextMessage(text, [optionalKeyboard], [optionalTrackingData]);
 console.log(message.text);
 ```
@@ -487,7 +502,7 @@ console.log(message.text);
 | --- | --- |
 | url | `string` |
 
-```javascript
+```js
 const message = new UrlMessage(url, [optionalKeyboard], [optionalTrackingData]);
 console.log(message.url);
 ```
@@ -501,7 +516,7 @@ console.log(message.url);
 | contactName | `string` |
 | contactPhoneNumber | `string` |
 
-```javascript
+```js
 const message = new ContactMessage(contactName, contactPhoneNumber, [optionalAvatar], [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.contactName}, ${message.contactPhoneNumber}`);
 ```
@@ -516,7 +531,7 @@ console.log(`${message.contactName}, ${message.contactPhoneNumber}`);
 | text | `string` |
 | thumbnail | `string` |
 
-```javascript
+```js
 const message = new PictureMessage(url, [optionalText], [optionalThumbnail], [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.url}, ${message.text}, ${message.thumbnail}`);
 ```
@@ -532,7 +547,7 @@ console.log(`${message.url}, ${message.text}, ${message.thumbnail}`);
 | thumbnail | `string` |
 | duration | `int` |
 
-```javascript
+```js
 const message = new VideoMessage(url, size, [optionalText], [optionalThumbnail], [optionalDuration], [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.url}, ${message.size}, ${message.thumbnail}, ${message.duration}`);
 ```
@@ -546,7 +561,7 @@ console.log(`${message.url}, ${message.size}, ${message.thumbnail}, ${message.du
 | latitude | `float` |
 | longitude | `float` |
 
-```javascript
+```js
 const message = new LocationMessage(latitude, longitude, [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.latitude}, ${message.longitude}`);
 ```
@@ -559,7 +574,7 @@ console.log(`${message.latitude}, ${message.longitude}`);
 | --- | --- |
 | stickerId | `int` |
 
-```javascript
+```js
 const message = new StickerMessage(stickerId, [optionalKeyboard], [optionalTrackingData]);
 console.log(message.stickerId);
 ```
@@ -574,7 +589,7 @@ console.log(message.stickerId);
 | sizeInBytes | `int` |
 | filename | `string` |
 
-```javascript
+```js
 const message = new FileMessage(url, sizeInBytes, filename, [optionalKeyboard], [optionalTrackingData]);
 console.log(`${message.url}, ${message.sizeInBytes}, ${message.filename}`);
 ```
@@ -587,7 +602,7 @@ console.log(`${message.url}, ${message.sizeInBytes}, ${message.filename}`);
 | --- | --- |
 | richMedia | `Object` |
 
-```javascript
+```js
 const SAMPLE_RICH_MEDIA = {
 	"ButtonsGroupColumns": 6,
 	"ButtonsGroupRows": 2,
@@ -599,7 +614,7 @@ const SAMPLE_RICH_MEDIA = {
 		"Image": "http://www.images.com/img.jpg",
 		"BgColor": "#000000",
 		"TextOpacity": 60,
-		"Rows": 1,
+		"Rows": 4,
 		"Columns": 6
 	}, {
 		"ActionBody": "http://www.website.com/go_here",
@@ -623,7 +638,7 @@ const message = new RichMedia(SAMPLE_RICH_MEDIA, [optionalKeyboard], [optionalTr
 | --- | --- |
 | keyboard | `JSON` |
 
-```javascript
+```js
 
 const SAMPLE_KEYBOARD = {
 	"Type": "keyboard",
