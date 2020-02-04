@@ -99,13 +99,13 @@ exports.sendMessage = {
 		const sampleUserProfile = { id: receiver };
 		const text = "sample message";
 		const sampleTrackingData = { value: "sent 1 message" };
-		const sampleKeyboard = { button: { bgColor: "#FFFFFF" }};
+		const sampleKeyboard = { button: { bgColor: "#FFFFFF" } };
 		const sampleChatId = "sample chatId";
 		const sampleMinApiVersion = 2;
 		const sampleMessage = new TextMessage(text, sampleKeyboard, null, null, null, sampleMinApiVersion);
 
 		bot._client = {
-			sendMessage: function(receiverId, messageType, message, trackingData, keyboard, chatId, minApiVersion) {
+			sendMessage: function (receiverId, messageType, message, trackingData, keyboard, chatId, minApiVersion) {
 				test.equals(receiverId, receiver);
 				test.equals(messageType, TextMessage.getType());
 				test.equals(trackingData, sampleTrackingData);
@@ -114,6 +114,7 @@ exports.sendMessage = {
 				test.equals(minApiVersion, sampleMinApiVersion);
 				test.equals(message.text, sampleMessage.text);
 				test.done();
+				return Promise.resolve({ status: 0, message_token: "token" }); // eslint-disable-line
 			}
 		};
 
@@ -136,7 +137,7 @@ exports.sendMessage = {
 		const sampleMessage = new TextMessage(text, null, null, null, null, sampleMinApiVersion);
 
 		bot._client = {
-			sendMessage: function(receiverId, messageType, message, trackingData, keyboard, chatId, minApiVersion) {
+			sendMessage: function (receiverId, messageType, message, trackingData, keyboard, chatId, minApiVersion) {
 				test.equals(receiverId, receiver);
 				test.equals(messageType, TextMessage.getType());
 				test.equals(chatId, sampleChatId);
@@ -168,16 +169,21 @@ exports.postToPublicChat = {
 		const message = new TextMessage("my text message", null, null, null, null, minApiVersion);
 
 		bot._client = {
-			postToPublicChat: function(senderProfile, messageType, messageData, optionalMinApiVersion) {
+			postToPublicChat: function (senderProfile, messageType, messageData, optionalMinApiVersion) {
 				test.equals(senderProfile, sender);
 				test.equals(messageType, TextMessage.getType());
 				test.equals(messageData.text, message.text);
 				test.equals(optionalMinApiVersion, minApiVersion);
 				test.done();
+				return Promise.resolve({ status: 0, message_token: "token" }); // eslint-disable-line
+
 			}
 		};
 
-		bot.postToPublicChat(sender, message);
+		bot.postToPublicChat(sender, message).catch(err => {
+			console.err(err);
+			test.fail(err);
+		});
 	}
 };
 
@@ -198,7 +204,7 @@ exports.eventHandling = {
 		const webhookEvent = '{ "event": "webhook", "message_token": 5058590812907389764 }';
 
 		const mockedStream = new require('stream').Readable();
-		mockedStream._read = function(size) {};
+		mockedStream._read = function (size) { };
 
 		bot._registerStreamAndHandleEvents(mockedStream);
 
