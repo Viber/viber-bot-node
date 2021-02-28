@@ -1,0 +1,24 @@
+{
+    "rules" : {
+        "indent": [2, "tab", {"SwitchCase": 1}],
+        "comma-spacing": [2, {"before": false, "after": true}],
+        "object-curly-spacing": [2, "always", {"objectsInObjects": false, "arraysInObjects": false}],
+        "space-infix-ops": [2, {"int32Hint": false}],
+        "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
+        "space-before-function-paren": [2, "never"],
+        "radix": [2, "always"],
+        "camelcase": [2, {"properties": "always"}],
+        "keyword-spacing" : [2, {"before": true, "after":true}],
+        "no-unused-vars" : [2, { "args": "none" }],
+        "space-before-blocks" : [2, {"keywords": "always"}],
+        "semi": [2, "always"],
+        "arrow-spacing": [2, { "before": true, "after": true }],
+        "no-sequences" : 2,
+        "strict" : [2, "global"]
+    },
+    "env" : {
+        "es6" : true,
+        "node" : true
+    },
+    "extends" : "eslint:recommended"
+}
