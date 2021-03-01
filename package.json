@@ -4,6 +4,7 @@
   "description": "A bot interface to work with Viber API",
   "author": "Viber LTD",
   "engine-strict": true,
+  "types": "index.d.ts",
   "engines": {
     "node": ">=5",
     "npm": ">=3"
